@@ -1,0 +1,66 @@
+﻿@model WebServicos.Models.Servico
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Servico</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoServico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoServico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fornecedor_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fornecedor_ID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

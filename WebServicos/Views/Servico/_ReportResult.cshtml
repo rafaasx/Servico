@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebServicos.Models.Servico>
+@if (Model != null)
+{
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Cliente.Nome)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Cliente.Bairro)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Cliente.Cidade)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Cliente.Estado)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.TipoServico)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">
+                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Bairro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Cidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoServico)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+            </tr>
+        }
+    </table>
+}

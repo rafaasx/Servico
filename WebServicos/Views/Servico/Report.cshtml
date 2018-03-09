@@ -1,0 +1,73 @@
+﻿@model WebServicos.Util.Filter
+@using Newtonsoft.Json
+
+<script>
+    var reportUrl = '@Url.Action("ReportResult", "Servico")';
+    function report() {
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "/Servico/ReportResult?Cliente=" + $("#Cliente").val() + "&Estado=" + $("#Estado").val()
+                + "&Cidade=" + $("#Cidade").val() + "&Bairro=" + $("#Bairro").val() + "&TipoServico=" + $("#TipoServico     ").val()
+                + "&ValMin=" + $("#ValMin").val() + "&ValMax=" + $("#ValMax").val(),
+            "method": "GET"
+        }
+
+        $.ajax(settings).done(function (response) {
+            $('#reportResult').html(response);
+        });
+        //$('#matchDetails').html('<i class="fas fa-circle-notch fa-spin text-primary mt-5 mb-t" style="font-size: 40px;"></i>');
+        //$('#reportResult').load(reportUrl, model);
+
+    };
+
+</script>
+<h2 class="mt-4 mb-4">Relatório de Serviços</h2>
+@{
+    var clientes = new WebServicos.Models.ServicosContext().Cliente.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Nome }).ToList();
+    clientes.Add(new SelectListItem { Value = "0", Text = "", Selected = true });
+    clientes = clientes.OrderBy(x => x.Value).ToList();
+}
+<div class="card">
+    <h5 class="card-header">Filtros</h5>
+    <div class="card-body">
+        <div id="form" class=" row">
+            <div class="form-group col-3">
+                @Html.LabelFor(model => model.Cliente, htmlAttributes: new { @class = "control-label" })
+                @Html.DropDownListFor(model => model.Cliente, clientes, htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="form-group col-3">
+                @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group col-3">
+                @Html.LabelFor(model => model.Cidade, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Cidade, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group col-3">
+                @Html.LabelFor(model => model.Bairro, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Bairro, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group col-3">
+                @Html.LabelFor(model => model.TipoServico, htmlAttributes: new { @class = "control-label" })
+                @Html.EnumDropDownListFor(model => model.TipoServico, htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="form-group col-3">
+                @Html.LabelFor(model => model.ValMin, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.ValMin, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group col-3">
+                @Html.LabelFor(model => model.ValMax, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.ValMax, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            <div class="form-group col-3">
+                <div class="mt-4 ml-5">
+                    <input type="button" value="Filtrar" class="btn btn-default mx-auto" onclick="report()" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="reportResult">
+    @Html.Partial("_ReportResult")
+</div>
