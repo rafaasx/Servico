@@ -1,0 +1,35 @@
+﻿@model IEnumerable<WebServicos.Models.Servico>
+@using System.Globalization
+@{
+    var fornecedores = new WebServicos.Models.ServicosContext().Fornecedor.ToList();
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">
+                Mês
+            </th>
+            <th scope="col">
+                Fornecedor
+            </th>
+        </tr>
+    </thead>
+    @for (int i = 1; i <= 12; i++)
+    {
+        bool firstMonth = true;
+        var fornecedoresMes = fornecedores.Where(s => !Model.Where(y => y.Data.Month == i && y.Data.Year == DateTime.Now.Year).Any(x => x.Fornecedor_ID == s.Id));
+        foreach (var item in fornecedoresMes)
+        {
+            <tr>
+                @if (firstMonth)
+                {
+                    firstMonth = false;
+                    CultureInfo cinfo = CultureInfo.CreateSpecificCulture("pt-BR");
+                    <td rowspan="@(fornecedoresMes.Count())"> @cinfo.DateTimeFormat.GetMonthName(i) </td>
+                }
+                <td> @item.Nome</td>
+            </tr>
+        }
+
+    }
+</table>

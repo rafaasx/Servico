@@ -346,6 +346,9 @@
     <Content Include="Views\Servico\_ReportResult.cshtml" />
     <Content Include="Views\Servico\Report.cshtml" />
     <Content Include="Views\Servico\Stats.cshtml" />
+    <Content Include="Views\Servico\_StatsProviders.cshtml" />
+    <Content Include="Views\Servico\_StatsProvidersTypeServices.cshtml" />
+    <Content Include="Views\Servico\_StatsTopSellers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<WebServicos.Models.Servico>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">
+                Fornecedor
+            </th>
+            <th scope="col">
+                Tipo Serviço
+            </th>
+            <th scope="col">
+                Valor
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model.GroupBy(x => new { x.Fornecedor_ID, x.TipoServico }).Select(y =>
+        new WebServicos.Models.Servico
+        {
+            Fornecedor = y.First().Fornecedor,
+            Fornecedor_ID = y.First().Fornecedor_ID,
+            TipoServico = y.First().TipoServico,
+            Valor = y.Average(s => s.Valor)
+        }
+        ))
+    {
+        <tr>
+            <td>@item.Fornecedor.Nome</td>
+            <td>@item.TipoServico</td>
+            <td>@item.Valor.ToString("C")</td>
+        </tr>
+    }
+</table>

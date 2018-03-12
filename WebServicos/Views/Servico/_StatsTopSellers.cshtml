@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebServicos.Models.Servico>
+@using System.Globalization
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">
+                Mês
+            </th>
+            <th scope="col">
+                Cliente
+            </th>
+            <th scope="col">
+                Valor total
+            </th>
+        </tr>
+    </thead>
+    @for (int i = 1; i <= 12; i++)
+    {
+        bool firstMonth = true;
+        var topVendedores = Model.Where(x => x.Data.Month == i && x.Data.Year == DateTime.Now.Year).GroupBy(x => x.Cliente_ID).Select(y =>
+        new WebServicos.Models.Servico { Cliente = y.First().Cliente, Data = y.First().Data, Valor = y.Sum(s => s.Valor) }
+        ).Take(3);
+        foreach (var item in topVendedores)
+        {
+            <tr>
+                @if (firstMonth)
+                {
+                    firstMonth = false;
+                    <td rowspan="@topVendedores.Count())">@Model.Where(x => x.Data.Month == i && x.Data.Year == DateTime.Now.Year).FirstOrDefault().Data.ToString("MMMM")</td>
+                }
+                <td>@item.Cliente.Nome</td>
+                <td>@item.Valor.ToString("C")</td>
+            </tr>
+        }
+        if (topVendedores.Count() == 0)
+        {
+            CultureInfo cinfo = CultureInfo.CreateSpecificCulture("pt-BR");
+            <tr>
+                <td>@cinfo.DateTimeFormat.GetMonthName(i)</td>
+                <td>SEM CLIENTES</td>
+                <td></td>
+            </tr>
+        }
+    }
+</table>
