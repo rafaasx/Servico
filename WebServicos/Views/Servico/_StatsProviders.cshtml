@@ -1,7 +1,7 @@
-﻿@model IEnumerable<WebServicos.Models.Servico>
+﻿@model IEnumerable<WebServicos.Domain.Servico>
 @using System.Globalization
 @{
-    var fornecedores = new WebServicos.Models.ServicosContext().Fornecedor.ToList();
+    var fornecedores = new WebServicos.Domain.ServicosContext().Fornecedor.ToList();
 }
 <table class="table">
     <thead>

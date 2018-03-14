@@ -1,11 +1,8 @@
-namespace WebServicos.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.Data.Entity.ModelConfiguration.Conventions;
-    using System.Linq;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
+namespace WebServicos.Domain
+{
     public class ServicosContext : DbContext
     {
         public virtual DbSet<Cliente> Cliente { get; set; }
@@ -22,7 +19,7 @@ namespace WebServicos.Models
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             base.OnModelCreating(modelBuilder);
 
-            
+
         }
     }
 }

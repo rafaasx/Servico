@@ -24,7 +24,7 @@
 </script>
 <h2 class="mt-4 mb-4">Relatório de Serviços</h2>
 @{
-    var clientes = new WebServicos.Models.ServicosContext().Cliente.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Nome }).ToList();
+    var clientes = new WebServicos.Domain.ServicosContext().Cliente.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Nome }).ToList();
     clientes.Add(new SelectListItem { Value = "0", Text = "", Selected = true });
     clientes = clientes.OrderBy(x => x.Value).ToList();
 }

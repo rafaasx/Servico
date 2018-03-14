@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace WebServicos.Models
+namespace WebServicos.Domain
 {
     public class Cliente
     {

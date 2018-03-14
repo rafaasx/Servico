@@ -1,4 +1,4 @@
-﻿@model WebServicos.Models.Servico
+﻿@model WebServicos.Domain.Servico
 
 @{
     ViewBag.Title = "Adicionar";
@@ -6,7 +6,7 @@
 
 <h2>Adicionar</h2>
 @{
-    var clientes = new WebServicos.Models.ServicosContext().Cliente.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Nome }).ToList();
+    var clientes = new WebServicos.Domain.ServicosContext().Cliente.Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Nome }).ToList();
     clientes.Add(new SelectListItem { Value = "0", Text = "Selecione", Selected = true });
     clientes = clientes.OrderBy(x => x.Value).ToList();
 }

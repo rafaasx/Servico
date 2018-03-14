@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using WebServicos.Models;
+using WebServicos.Domain;
 using WebServicos.Util;
 
 namespace WebServicos.Controllers
@@ -52,15 +52,17 @@ namespace WebServicos.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Descricao,Data,Valor,TipoServico,Cliente_ID,Fornecedor_ID")] Servico servico)
+        public ActionResult Create([Bind(Include = "Id,Descricao,Data,Valor,TipoServico,Cliente_ID,Fornecedor_ID")] Servico servico)
         {
-            var user = new ApplicationDbContext().Users.FirstOrDefault();
-            servico.Fornecedor_ID = db.Fornecedor.FirstOrDefault(x => x.Email == user.Email).Id;
-            if (ModelState.IsValid)
+            if (!string.IsNullOrEmpty(User?.Identity?.Name))
+                servico.Fornecedor_ID = db.Fornecedor.FirstOrDefault(x => x.Email == User.Identity.Name).Id;
+            if (servico.Fornecedor_ID == 0)
+                ModelState.AddModelError(string.Empty, TempData["Não foi possível identificar o fornecedor."].ToString());
+            if (ModelState.IsValid && servico.Fornecedor_ID > 0)
             {
                 db.Servico.Add(servico);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                int id = db.SaveChanges();
+                return RedirectToAction("Index", id);
             }
 
             return View(servico);

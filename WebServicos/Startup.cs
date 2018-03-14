@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
-using WebServicos.Models;
-using System.Data;
-using System.Data.Entity;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using WebServicos.Util;
+using WebServicos.Domain;
 
 [assembly: OwinStartupAttribute(typeof(WebServicos.Startup))]
 namespace WebServicos

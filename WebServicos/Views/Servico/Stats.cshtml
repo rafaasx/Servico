@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebServicos.Models.Servico>
+﻿@model IEnumerable<WebServicos.Domain.Servico>
 
 @{
     ViewBag.Title = "Estatísticas";
@@ -7,9 +7,10 @@
 
 <h3 class="mt-4 mb-4">Top Vendedores</h3>
 @Html.Partial("_StatsTopSellers", Model)
-
+<hr />
 <h3 class="mt-4 mb-4">Fornecedores sem compra</h3>
 @Html.Partial("_StatsProviders", Model)
-
+<hr />
 <h3 class="mt-4 mb-4">Média por Fornecedor e Tipo de Serviço</h3>
 @Html.Partial("_StatsProvidersTypeServices", Model)
+<hr />

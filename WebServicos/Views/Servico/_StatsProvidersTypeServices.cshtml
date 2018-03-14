@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebServicos.Models.Servico>
+﻿@model IEnumerable<WebServicos.Domain.Servico>
 <table class="table">
     <thead>
         <tr>
@@ -14,7 +14,7 @@
         </tr>
     </thead>
     @foreach (var item in Model.GroupBy(x => new { x.Fornecedor_ID, x.TipoServico }).Select(y =>
-        new WebServicos.Models.Servico
+        new WebServicos.Domain.Servico
         {
             Fornecedor = y.First().Fornecedor,
             Fornecedor_ID = y.First().Fornecedor_ID,
