@@ -44,8 +44,6 @@ namespace WebServicos.Controllers
         }
 
         // POST: Cliente/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Nome,Cidade,Bairro,Estado")] Cliente cliente)
@@ -76,8 +74,6 @@ namespace WebServicos.Controllers
         }
 
         // POST: Cliente/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Nome,Cidade,Bairro,Estado")] Cliente cliente)

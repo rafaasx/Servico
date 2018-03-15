@@ -15,14 +15,14 @@ namespace WebServicos.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Aplicativo gerenciador de serviços";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Contatos pessoais";
 
             return View();
         }
