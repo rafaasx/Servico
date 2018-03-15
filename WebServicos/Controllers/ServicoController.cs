@@ -161,8 +161,8 @@ namespace WebServicos.Controllers
                 servicos = servicos.Where(x => x.TipoServico.Equals(filter.TipoServico)).ToList();
             if (filter.ValMax > 0)
                 servicos = servicos.Where(x => x.Valor <= filter.ValMax).ToList();
-            if (filter.ValMax > 0)
-                servicos = servicos.Where(x => x.Valor >= filter.ValMax).ToList();
+            if (filter.ValMin > 0)
+                servicos = servicos.Where(x => x.Valor >= filter.ValMin).ToList();
             return View("_ReportResult", servicos);
         }
 

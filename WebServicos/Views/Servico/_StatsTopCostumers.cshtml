@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<WebServicos.Domain.Servico>
 @using System.Globalization
+@{
+    Layout = null;
+}
 <table class="table">
     <thead>
         <tr>
@@ -19,14 +22,14 @@
         bool firstMonth = true;
         var topVendedores = Model.Where(x => x.Data.Month == i && x.Data.Year == DateTime.Now.Year).GroupBy(x => x.Cliente_ID).Select(y =>
         new WebServicos.Domain.Servico { Cliente = y.First().Cliente, Data = y.First().Data, Valor = y.Sum(s => s.Valor) }
-        ).Take(3);
+        ).Take(3).OrderByDescending(x => x.Valor);
         foreach (var item in topVendedores)
         {
             <tr>
                 @if (firstMonth)
                 {
                     firstMonth = false;
-                    <td rowspan="@topVendedores.Count())">@Model.Where(x => x.Data.Month == i && x.Data.Year == DateTime.Now.Year).FirstOrDefault().Data.ToString("MMMM")</td>
+                    <td rowspan="@topVendedores.Count())" class="align-middle">@Model.Where(x => x.Data.Month == i && x.Data.Year == DateTime.Now.Year).FirstOrDefault().Data.ToString("MMMM")</td>
                 }
                 <td>@item.Cliente.Nome</td>
                 <td>@item.Valor.ToString("C")</td>

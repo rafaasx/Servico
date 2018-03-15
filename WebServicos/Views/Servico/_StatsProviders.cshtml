@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<WebServicos.Domain.Servico>
 @using System.Globalization
 @{
+    Layout = null;
     var fornecedores = new WebServicos.Domain.ServicosContext().Fornecedor.ToList();
 }
 <table class="table">
@@ -25,7 +26,7 @@
                 {
                     firstMonth = false;
                     CultureInfo cinfo = CultureInfo.CreateSpecificCulture("pt-BR");
-                    <td rowspan="@(fornecedoresMes.Count())"> @cinfo.DateTimeFormat.GetMonthName(i) </td>
+                    <td rowspan="@(fornecedoresMes.Count())" class="align-middle"> @cinfo.DateTimeFormat.GetMonthName(i) </td>
                 }
                 <td> @item.Nome</td>
             </tr>

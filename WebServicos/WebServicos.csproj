@@ -343,7 +343,7 @@
     <Content Include="Views\Servico\Stats.cshtml" />
     <Content Include="Views\Servico\_StatsProviders.cshtml" />
     <Content Include="Views\Servico\_StatsProvidersTypeServices.cshtml" />
-    <Content Include="Views\Servico\_StatsTopSellers.cshtml" />
+    <Content Include="Views\Servico\_StatsTopCostumers.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -353,6 +353,8 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

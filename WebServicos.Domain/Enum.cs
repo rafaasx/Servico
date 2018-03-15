@@ -18,7 +18,7 @@ namespace WebServicos.Domain
             [Display(Name = "Manutenção Hidráulica")]
             ManutencaoHidraulica = 3,
             [Display(Name = "Instalação Elétrica")]
-            InstalacaoEletrica = 1,
+            InstalacaoEletrica = 4,
             [Display(Name = "Jardinagem")]
             Jardinagem = 5,
 

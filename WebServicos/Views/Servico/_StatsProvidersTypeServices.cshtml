@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<WebServicos.Domain.Servico>
+@{
+    Layout = null;
+}
 <table class="table">
     <thead>
         <tr>
@@ -13,7 +16,9 @@
             </th>
         </tr>
     </thead>
-    @foreach (var item in Model.GroupBy(x => new { x.Fornecedor_ID, x.TipoServico }).Select(y =>
+    @{ 
+        int fornecedor = 0;
+        var group = Model.GroupBy(x => new { x.Fornecedor_ID, x.TipoServico }).Select(y =>
         new WebServicos.Domain.Servico
         {
             Fornecedor = y.First().Fornecedor,
@@ -21,10 +26,16 @@
             TipoServico = y.First().TipoServico,
             Valor = y.Average(s => s.Valor)
         }
-        ))
+        ).OrderBy(x => x.Fornecedor_ID);
+    }
+    @foreach (var item in group)
     {
         <tr>
-            <td>@item.Fornecedor.Nome</td>
+            @if (item.Fornecedor_ID != fornecedor)
+            {
+                fornecedor = item.Fornecedor_ID;
+                <td rowspan="@group.Where(x => x.Fornecedor_ID == item.Fornecedor_ID).Count()" class="align-middle">@item.Fornecedor.Nome</td>
+            }
             <td>@item.TipoServico</td>
             <td>@item.Valor.ToString("C")</td>
         </tr>

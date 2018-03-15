@@ -2,8 +2,11 @@
 using Owin;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using WebServicos.Domain;
+using static WebServicos.Domain.Enum;
 
 [assembly: OwinStartupAttribute(typeof(WebServicos.Startup))]
 namespace WebServicos
@@ -47,6 +50,37 @@ namespace WebServicos
 
                     };
                     servicosContext.Fornecedor.AddRange(fornecedores);
+                    servicosContext.SaveChanges();
+                }
+
+                if (servicosContext.Servico.Count() == 0)
+                {
+                    List<Servico> servicos = new List<Servico>();
+                    for (int i = 1; i <= 12; i++)
+                    {
+                        for (int x = 0; x < 10; x++)
+                        {
+
+                            Random random = new Random();
+                            TipoServico tipoServico = (TipoServico)random.Next(1, 6);
+                            var type = typeof(TipoServico);
+                            var memInfo = type.GetMember(tipoServico.ToString());
+                            Debug.WriteLine(tipoServico.ToString());
+                            Debug.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(memInfo));
+                            var attributes = memInfo[0].GetCustomAttributes(typeof(DisplayAttribute), false);
+                            var description = ((DisplayAttribute)attributes[0]).Name;
+                            servicos.Add(new Servico()
+                            {
+                                Cliente_ID = random.Next(1, 5),
+                                Data = new DateTime(2018, i, random.Next(1, 28)),
+                                Descricao = description,
+                                Fornecedor_ID = random.Next(1, 5),
+                                TipoServico = tipoServico,
+                                Valor = random.Next(1, 1001)
+                            });
+                        }
+                    }
+                    servicosContext.Servico.AddRange(servicos);
                     servicosContext.SaveChanges();
                 }
             }
