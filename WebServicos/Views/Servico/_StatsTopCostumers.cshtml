@@ -3,46 +3,51 @@
 @{
     Layout = null;
 }
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">
-                Mês
-            </th>
-            <th scope="col">
-                Cliente
-            </th>
-            <th scope="col">
-                Valor total
-            </th>
-        </tr>
-    </thead>
-    @for (int i = 1; i <= 12; i++)
-    {
-        bool firstMonth = true;
-        var topVendedores = Model.Where(x => x.Data.Month == i && x.Data.Year == DateTime.Now.Year).GroupBy(x => x.Cliente_ID).Select(y =>
-        new WebServicos.Domain.Servico { Cliente = y.First().Cliente, Data = y.First().Data, Valor = y.Sum(s => s.Valor) }
-        ).Take(3).OrderByDescending(x => x.Valor);
-        foreach (var item in topVendedores)
-        {
-            <tr>
-                @if (firstMonth)
+<div class="card mt-4 mb-4">
+    <h3 class="card-header btn text-left bg-dark text-white" data-toggle="collapse" href="#collapseTopCostumers" role="button" aria-expanded="true" aria-controls="collapseTopCostumers">Top Clientes</h3>
+    <div class="card-body collapse show px-1" id="collapseTopCostumers">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        Mês
+                    </th>
+                    <th scope="col">
+                        Cliente
+                    </th>
+                    <th scope="col">
+                        Valor total
+                    </th>
+                </tr>
+            </thead>
+            @for (int i = 1; i <= 12; i++)
+            {
+                bool firstMonth = true;
+                var topVendedores = Model.Where(x => x.Data.Month == i && x.Data.Year == DateTime.Now.Year).GroupBy(x => x.Cliente_ID).Select(y =>
+                new WebServicos.Domain.Servico { Cliente = y.First().Cliente, Data = y.First().Data, Valor = y.Sum(s => s.Valor) }
+                ).Take(3).OrderByDescending(x => x.Valor);
+                foreach (var item in topVendedores)
                 {
-                    firstMonth = false;
-                    <td rowspan="@topVendedores.Count())" class="align-middle">@Model.Where(x => x.Data.Month == i && x.Data.Year == DateTime.Now.Year).FirstOrDefault().Data.ToString("MMMM")</td>
+                    <tr>
+                        @if (firstMonth)
+                        {
+                            firstMonth = false;
+                            <td rowspan="@topVendedores.Count())" class="align-middle">@Model.Where(x => x.Data.Month == i && x.Data.Year == DateTime.Now.Year).FirstOrDefault().Data.ToString("MMMM")</td>
+                        }
+                        <td>@item.Cliente.Nome</td>
+                        <td>@item.Valor.ToString("C")</td>
+                    </tr>
                 }
-                <td>@item.Cliente.Nome</td>
-                <td>@item.Valor.ToString("C")</td>
-            </tr>
-        }
-        if (topVendedores.Count() == 0)
-        {
-            CultureInfo cinfo = CultureInfo.CreateSpecificCulture("pt-BR");
-            <tr>
-                <td>@cinfo.DateTimeFormat.GetMonthName(i)</td>
-                <td>SEM CLIENTES</td>
-                <td></td>
-            </tr>
-        }
-    }
-</table>
+                if (topVendedores.Count() == 0)
+                {
+                    CultureInfo cinfo = CultureInfo.CreateSpecificCulture("pt-BR");
+                    <tr>
+                        <td>@cinfo.DateTimeFormat.GetMonthName(i)</td>
+                        <td>SEM CLIENTES</td>
+                        <td></td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>

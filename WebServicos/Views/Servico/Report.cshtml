@@ -3,22 +3,22 @@
 
 <script>
     var reportUrl = '@Url.Action("ReportResult", "Servico")';
-    function report() {
+    function report(page) {
         var settings = {
             "async": true,
             "crossDomain": true,
             "url": "/Servico/ReportResult?Cliente=" + $("#Cliente").val() + "&Estado=" + $("#Estado").val()
                 + "&Cidade=" + $("#Cidade").val() + "&Bairro=" + $("#Bairro").val() + "&TipoServico=" + $("#TipoServico     ").val()
-                + "&ValMin=" + $("#ValMin").val() + "&ValMax=" + $("#ValMax").val(),
+                + "&ValMin=" + $("#ValMin").val() + "&ValMax=" + $("#ValMax").val() + "&Page=" + page,
             "method": "GET"
         }
 
         $.ajax(settings).done(function (response) {
             $('#reportResult').html(response);
         });
-        //$('#matchDetails').html('<i class="fas fa-circle-notch fa-spin text-primary mt-5 mb-t" style="font-size: 40px;"></i>');
-        //$('#reportResult').load(reportUrl, model);
-
+    };
+    window.onload = function () {
+        report();
     };
 
 </script>
@@ -29,8 +29,8 @@
     clientes = clientes.OrderBy(x => x.Value).ToList();
 }
 <div class="card">
-    <h5 class="card-header">Filtros</h5>
-    <div class="card-body">
+    <a class="card-header btn btn-default text-left" data-toggle="collapse" href="#collapsefilter" role="button" aria-expanded="false" aria-controls="collapseExample">Filtros</a>
+    <div class="card-body collapse" id="collapsefilter">
         <div id="form" class=" row">
             <div class="form-group col-3">
                 @Html.LabelFor(model => model.Cliente, htmlAttributes: new { @class = "control-label" })

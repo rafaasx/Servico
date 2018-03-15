@@ -4,33 +4,38 @@
     Layout = null;
     var fornecedores = new WebServicos.Domain.ServicosContext().Fornecedor.ToList();
 }
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">
-                Mês
-            </th>
-            <th scope="col">
-                Fornecedor
-            </th>
-        </tr>
-    </thead>
-    @for (int i = 1; i <= 12; i++)
-    {
-        bool firstMonth = true;
-        var fornecedoresMes = fornecedores.Where(s => !Model.Where(y => y.Data.Month == i && y.Data.Year == DateTime.Now.Year).Any(x => x.Fornecedor_ID == s.Id));
-        foreach (var item in fornecedoresMes)
-        {
-            <tr>
-                @if (firstMonth)
+<div class="card mt-4 mb-4">
+    <h3 class="card-header btn text-left bg-dark text-white" data-toggle="collapse" href="#collapseProviders" role="button" aria-expanded="true" aria-controls="collapseProviders">Fornecedores sem compra</h3>
+    <div class="card-body collapse show px-1" id="collapseProviders">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        Mês
+                    </th>
+                    <th scope="col">
+                        Fornecedor
+                    </th>
+                </tr>
+            </thead>
+            @for (int i = 1; i <= 12; i++)
+            {
+                bool firstMonth = true;
+                var fornecedoresMes = fornecedores.Where(s => !Model.Where(y => y.Data.Month == i && y.Data.Year == DateTime.Now.Year).Any(x => x.Fornecedor_ID == s.Id));
+                foreach (var item in fornecedoresMes)
                 {
-                    firstMonth = false;
-                    CultureInfo cinfo = CultureInfo.CreateSpecificCulture("pt-BR");
-                    <td rowspan="@(fornecedoresMes.Count())" class="align-middle"> @cinfo.DateTimeFormat.GetMonthName(i) </td>
+                    <tr>
+                        @if (firstMonth)
+                        {
+                            firstMonth = false;
+                            CultureInfo cinfo = CultureInfo.CreateSpecificCulture("pt-BR");
+                            <td rowspan="@(fornecedoresMes.Count())" class="align-middle"> @cinfo.DateTimeFormat.GetMonthName(i) </td>
+                        }
+                        <td> @item.Nome</td>
+                    </tr>
                 }
-                <td> @item.Nome</td>
-            </tr>
-        }
 
-    }
-</table>
+            }
+        </table>
+    </div>
+</div>

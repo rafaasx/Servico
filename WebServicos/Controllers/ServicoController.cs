@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using WebServicos.Domain;
-using WebServicos.Util;
 
 namespace WebServicos.Controllers
 {
@@ -143,7 +141,7 @@ namespace WebServicos.Controllers
 
         // GET: ReportResult
         [HttpGet]
-        public ActionResult ReportResult([Bind(Include = "Cliente, Estado, Cidade, Bairro, TipoServico, ValMin, ValMax")] Util.Filter filter)
+        public ActionResult ReportResult([Bind(Include = "Cliente, Estado, Cidade, Bairro, TipoServico, ValMin, ValMax")] Util.Filter filter, int? page)
         {
             List<Servico> servicos = db.Servico
                     .Include(s => s.Cliente)
@@ -163,7 +161,12 @@ namespace WebServicos.Controllers
                 servicos = servicos.Where(x => x.Valor <= filter.ValMax).ToList();
             if (filter.ValMin > 0)
                 servicos = servicos.Where(x => x.Valor >= filter.ValMin).ToList();
-            return View("_ReportResult", servicos);
+
+            int pageSize = 10;
+            int currentPage = (page ?? 0);
+            ViewBag.Pages = Math.Ceiling((decimal)servicos.Count() / pageSize);
+            ViewBag.CurrentPage = currentPage;
+            return View("_ReportResult", servicos.Skip(currentPage * pageSize).Take(pageSize));
         }
 
         // GET: Servico

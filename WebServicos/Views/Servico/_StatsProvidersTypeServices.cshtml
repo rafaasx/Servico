@@ -2,42 +2,47 @@
 @{
     Layout = null;
 }
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">
-                Fornecedor
-            </th>
-            <th scope="col">
-                Tipo Serviço
-            </th>
-            <th scope="col">
-                Valor
-            </th>
-        </tr>
-    </thead>
-    @{ 
-        int fornecedor = 0;
-        var group = Model.GroupBy(x => new { x.Fornecedor_ID, x.TipoServico }).Select(y =>
-        new WebServicos.Domain.Servico
-        {
-            Fornecedor = y.First().Fornecedor,
-            Fornecedor_ID = y.First().Fornecedor_ID,
-            TipoServico = y.First().TipoServico,
-            Valor = y.Average(s => s.Valor)
-        }
-        ).OrderBy(x => x.Fornecedor_ID);
-    }
-    @foreach (var item in group)
-    {
-        <tr>
-            @if (item.Fornecedor_ID != fornecedor)
-            {
-                fornecedor = item.Fornecedor_ID;
-                <td rowspan="@group.Where(x => x.Fornecedor_ID == item.Fornecedor_ID).Count()" class="align-middle">@item.Fornecedor.Nome</td>
+<div class="card mt-4 mb-4">
+    <h3 class="card-header btn text-left bg-dark text-white" data-toggle="collapse" href="#collapseProvidersTypeServices" role="button" aria-expanded="true" aria-controls="collapseProvidersTypeServices">Média por Fornecedor e Tipo de Serviço</h3>
+    <div class="card-body collapse show px-1" id="collapseProvidersTypeServices">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        Fornecedor
+                    </th>
+                    <th scope="col">
+                        Tipo Serviço
+                    </th>
+                    <th scope="col">
+                        Valor
+                    </th>
+                </tr>
+            </thead>
+            @{
+                int fornecedor = 0;
+                var group = Model.GroupBy(x => new { x.Fornecedor_ID, x.TipoServico }).Select(y =>
+                new WebServicos.Domain.Servico
+                {
+                    Fornecedor = y.First().Fornecedor,
+                    Fornecedor_ID = y.First().Fornecedor_ID,
+                    TipoServico = y.First().TipoServico,
+                    Valor = y.Average(s => s.Valor)
+                }
+                ).OrderBy(x => x.Fornecedor_ID);
             }
-            <td>@item.TipoServico</td>
-            <td>@item.Valor.ToString("C")</td>
-        </tr>
-    }
-</table>
+            @foreach (var item in group)
+            {
+                <tr>
+                    @if (item.Fornecedor_ID != fornecedor)
+                    {
+                        fornecedor = item.Fornecedor_ID;
+                        <td rowspan="@group.Where(x => x.Fornecedor_ID == item.Fornecedor_ID).Count()" class="align-middle">@item.Fornecedor.Nome</td>
+                    }
+                    <td>@item.TipoServico</td>
+                    <td>@item.Valor.ToString("C")</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

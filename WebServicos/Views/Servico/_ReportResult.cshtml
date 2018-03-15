@@ -6,6 +6,20 @@
 
 @if (Model != null)
 {
+    <nav aria-label="Page navigation example" id="pagination">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(ViewBag.CurrentPage == 0 ? "disabled" : "")">
+                <a class="page-link" href="#pagination" tabindex="-1" onclick="report(@(ViewBag.CurrentPage - 1))">Anterior</a>
+            </li>
+            @for (int i = 0; i < ViewBag.Pages; i++)
+            {
+                <li class="page-item @(ViewBag.CurrentPage == i ? "disabled" : "")"><a class="page-link" onclick="report(@i)" href="#pagination">@(i+1)</a></li>
+            }
+            <li class="page-item @(ViewBag.CurrentPage + 1 == ViewBag.Pages ? "disabled" : "")">
+                <a class="page-link" href="#pagination" onclick="report(@(ViewBag.CurrentPage + 1))">Próximo</a>
+            </li>
+        </ul>
+    </nav>
     <table class="table table-striped">
         <tr>
             <th scope="col">
