@@ -375,6 +375,10 @@
       <Project>{2cda7cda-c59c-42ea-aef0-a79c157a2005}</Project>
       <Name>WebServicos.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebServicos.Repository\WebServicos.Repository.csproj">
+      <Project>{47dee3ff-fcc8-4b7f-b246-eb0430afc7f2}</Project>
+      <Name>WebServicos.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

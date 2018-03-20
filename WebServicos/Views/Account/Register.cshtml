@@ -4,11 +4,20 @@
 }
 
 <h2>@ViewBag.Title.</h2>
+<p class="text-danger">
+    Para vincular com um dos fornecedores, é preciso se cadastrar com um dos e-mails abaixo   
+</p>
+<p class="text-danger">
+    "rafaeltwisted@gmail.com"
+    "rafael.xavier@supero.com.br"
+    "rafael.asxavier@gmail.com"
+    "email@supero.com.br"
+</p>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
+    <h4>Criar nova conta</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">

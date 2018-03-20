@@ -9,28 +9,29 @@ using System.Web;
 using System.Web.Mvc;
 using WebServicos.Models;
 using WebServicos.Domain;
+using WebServicos.Repository;
 
 namespace WebServicos.Controllers
 {
     [Authorize]
     public class FornecedorController : Controller
     {
-        private ServicosContext db = new ServicosContext();
+        private FornecedorRepository fornecedorRepository = new FornecedorRepository();
 
         // GET: Fornecedor
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Fornecedor.ToListAsync());
+            return View(fornecedorRepository.List());
         }
 
         // GET: Fornecedor/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Fornecedor fornecedor = await db.Fornecedor.FindAsync(id);
+            Fornecedor fornecedor = fornecedorRepository.Get((int)id);
             if (fornecedor == null)
             {
                 return HttpNotFound();
@@ -47,12 +48,11 @@ namespace WebServicos.Controllers
         // POST: Fornecedor/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Nome,Email")] Fornecedor fornecedor)
+        public ActionResult Create([Bind(Include = "Id,Nome,Email")] Fornecedor fornecedor)
         {
             if (ModelState.IsValid)
             {
-                db.Fornecedor.Add(fornecedor);
-                await db.SaveChangesAsync();
+                fornecedorRepository.Add(fornecedor);
                 return RedirectToAction("Index");
             }
 
@@ -60,13 +60,13 @@ namespace WebServicos.Controllers
         }
 
         // GET: Fornecedor/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Fornecedor fornecedor = await db.Fornecedor.FindAsync(id);
+            Fornecedor fornecedor = fornecedorRepository.Get((int)id);
             if (fornecedor == null)
             {
                 return HttpNotFound();
@@ -77,25 +77,24 @@ namespace WebServicos.Controllers
         // POST: Fornecedor/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Nome,Email")] Fornecedor fornecedor)
+        public ActionResult Edit([Bind(Include = "Id,Nome,Email")] Fornecedor fornecedor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(fornecedor).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                fornecedorRepository.Update(fornecedor);
                 return RedirectToAction("Index");
             }
             return View(fornecedor);
         }
 
         // GET: Fornecedor/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Fornecedor fornecedor = await db.Fornecedor.FindAsync(id);
+            Fornecedor fornecedor = fornecedorRepository.Get((int)id);
             if (fornecedor == null)
             {
                 return HttpNotFound();
@@ -106,20 +105,15 @@ namespace WebServicos.Controllers
         // POST: Fornecedor/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Fornecedor fornecedor = await db.Fornecedor.FindAsync(id);
-            db.Fornecedor.Remove(fornecedor);
-            await db.SaveChangesAsync();
+            Fornecedor fornecedor = fornecedorRepository.Get((int)id);
+            fornecedorRepository.Delete(id);
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }
