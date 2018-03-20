@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServicos", "WebServicos\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServicos.Domain", "WebServicos.Domain\WebServicos.Domain.csproj", "{2CDA7CDA-C59C-42EA-AEF0-A79C157A2005}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServicosTest", "WebServicosTest\WebServicosTest.csproj", "{15DEEE1C-6CD8-41CF-A3D1-5381071B602C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServicos.Repository", "WebServicos.Repository\WebServicos.Repository.csproj", "{47DEE3FF-FCC8-4B7F-B246-EB0430AFC7F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{2CDA7CDA-C59C-42EA-AEF0-A79C157A2005}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CDA7CDA-C59C-42EA-AEF0-A79C157A2005}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CDA7CDA-C59C-42EA-AEF0-A79C157A2005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15DEEE1C-6CD8-41CF-A3D1-5381071B602C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15DEEE1C-6CD8-41CF-A3D1-5381071B602C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15DEEE1C-6CD8-41CF-A3D1-5381071B602C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15DEEE1C-6CD8-41CF-A3D1-5381071B602C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47DEE3FF-FCC8-4B7F-B246-EB0430AFC7F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47DEE3FF-FCC8-4B7F-B246-EB0430AFC7F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47DEE3FF-FCC8-4B7F-B246-EB0430AFC7F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47DEE3FF-FCC8-4B7F-B246-EB0430AFC7F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
