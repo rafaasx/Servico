@@ -18,7 +18,7 @@
                     </th>
                 </tr>
             </thead>
-            @for (int i = 1; i <= 12; i++)
+            @for (int i = 1; i <= DateTime.Now.Month; i++)
             {
                 bool firstMonth = true;
                 var fornecedoresMes = fornecedores.Where(s => !Model.Where(y => y.Data.Month == i && y.Data.Year == DateTime.Now.Year).Any(x => x.Fornecedor_ID == s.Id));

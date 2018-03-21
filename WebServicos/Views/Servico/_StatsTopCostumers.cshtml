@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<WebServicos.Domain.Servico>
 @using System.Globalization
+@using WebServicos.Domain
 @{
     Layout = null;
 }
@@ -20,11 +21,11 @@
                     </th>
                 </tr>
             </thead>
-            @for (int i = 1; i <= 12; i++)
+            @for (int i = 1; i <= DateTime.Now.Month; i++)
             {
                 bool firstMonth = true;
                 var topVendedores = Model.Where(x => x.Data.Month == i && x.Data.Year == DateTime.Now.Year).GroupBy(x => x.Cliente_ID).Select(y =>
-                new WebServicos.Domain.Servico { Cliente = y.First().Cliente, Data = y.First().Data, Valor = y.Sum(s => s.Valor) }
+                new Servico { Cliente = y.First().Cliente, Data = y.First().Data, Valor = y.Sum(s => s.Valor) }
                 ).Take(3).OrderByDescending(x => x.Valor);
                 foreach (var item in topVendedores)
                 {

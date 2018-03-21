@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
-using System.Data.SqlClient;
 using System.Linq;
 using WebServicos.Domain;
 using WebServicos.Repository.Interface;
@@ -59,10 +57,10 @@ namespace WebServicos.Repository
         {
             using (var db = new ServicosContext())
             {
-                var Servico = db.Servico.FirstOrDefault(x => x.Id == id);
-                if (Servico != null)
+                var servico = db.Servico.FirstOrDefault(x => x.Id == id);
+                if (servico != null)
                 {
-                    db.Servico.Remove(Servico);
+                    db.Servico.Remove(servico);
                     db.SaveChanges();
                 }
                 else
@@ -83,35 +81,31 @@ namespace WebServicos.Repository
         {
             using (var db = new ServicosContext())
             {
-                return db.Servico.ToList();
+                return db.Servico
+                    .Include(s => s.Cliente)
+                    .Include(s => s.Fornecedor)
+                    .ToList();
             }
         }
 
         public void Update(Servico servico)
         {
-            try
+            using (var db = new ServicosContext())
             {
-                using (var db = new ServicosContext())
+                var context = new ValidationContext(servico, serviceProvider: null, items: null);
+                var results = new List<ValidationResult>();
+                if (Validator.TryValidateObject(servico, context, results, true))
                 {
-                    var context = new ValidationContext(servico, serviceProvider: null, items: null);
-                    var results = new List<ValidationResult>();
-                    if (Validator.TryValidateObject(servico, context, results, true))
-                    {
-                        db.Entry(servico).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return;
-                    }
-                    string erros = string.Empty;
-                    foreach (var item in results)
-                    {
-                        erros += (string.IsNullOrEmpty(erros) ? "" : "\n") + item.ErrorMessage;
-                    }
-                    throw new DbEntityValidationException(erros);
+                    db.Entry(servico).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return;
                 }
-            }
-            catch (Exception)
-            {
-                throw;
+                string erros = string.Empty;
+                foreach (var item in results)
+                {
+                    erros += (string.IsNullOrEmpty(erros) ? "" : "\n") + item.ErrorMessage;
+                }
+                throw new DbEntityValidationException(erros);
             }
         }
 

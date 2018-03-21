@@ -1,5 +1,6 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using WebServicos.Domain.Migrations;
 
 namespace WebServicos.Domain
 {
@@ -12,6 +13,7 @@ namespace WebServicos.Domain
         public ServicosContext()
             : base("name=Servicos")
         {
+            Database.SetInitializer(new DBInitializer());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

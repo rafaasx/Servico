@@ -57,11 +57,12 @@
     <Compile Include="Enum.cs" />
     <Compile Include="Fornecedor.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\201803141850456_InitialCreate.cs" />
-    <Compile Include="Migrations\201803141850456_InitialCreate.Designer.cs">
-      <DependentUpon>201803141850456_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201803211446113_initial.cs" />
+    <Compile Include="Migrations\201803211446113_initial.Designer.cs">
+      <DependentUpon>201803211446113_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\DBInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servico.cs" />
     <Compile Include="ServicosContext.cs" />
@@ -71,8 +72,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803141850456_InitialCreate.resx">
-      <DependentUpon>201803141850456_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803211446113_initial.resx">
+      <DependentUpon>201803211446113_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
