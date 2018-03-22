@@ -26,7 +26,7 @@
                 bool firstMonth = true;
                 var topVendedores = Model.Where(x => x.Data.Month == i && x.Data.Year == DateTime.Now.Year).GroupBy(x => x.Cliente_ID).Select(y =>
                 new Servico { Cliente = y.First().Cliente, Data = y.First().Data, Valor = y.Sum(s => s.Valor) }
-                ).Take(3).OrderByDescending(x => x.Valor);
+                ).Take(3).OrderByDescending(x => x.Valor).ToList();
                 foreach (var item in topVendedores)
                 {
                     <tr>
@@ -39,7 +39,7 @@
                         <td>@item.Valor.ToString("C")</td>
                     </tr>
                 }
-                if (topVendedores.Count() == 0)
+                if (!topVendedores.Any())
                 {
                     CultureInfo cinfo = CultureInfo.CreateSpecificCulture("pt-BR");
                     <tr>
